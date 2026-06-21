@@ -157,5 +157,8 @@ One way implementation diverged from the original plan was the data collection m
 AI assistance was used throughout this project in ways that go beyond general advice, and is disclosed specifically here rather than only in planning.md.
  
 **Instance 1, label stress testing during annotation**: While labeling, Claude flagged several rows as ambiguous fits for any of the three labels rather than forcing a label, including AI generated content such as a rap battle written by a language model, and exact or near duplicate posts that had been collected twice under different search terms. These were marked for removal rather than labeled, and that removal decision was carried forward into the final 261 example dataset rather than being overridden.
+
+## Demo Link:
+https://youtu.be/0fsMFa-6irE
  
 **Instance 2, training diagnosis**: When the first fine tuned model produced 0.00 precision and recall on unsupported_take, Claude was directed to read the confusion matrix and propose a cause rather than just suggest hyperparameter changes blindly. The diagnosis was class imbalance causing majority class collapse, which led to a class weighted Trainer subclass. This fix was implemented, tested, and confirmed against a new confusion matrix rather than assumed to have worked from the loss curves alone.

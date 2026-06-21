@@ -132,8 +132,6 @@ Reaction_noise has the weakest recall of all three labels even after class weigh
  
 ### Sample classifications
  
-[PLACEHOLDER: run 3 to 5 example posts through the fine tuned model and fill in this table with the actual predicted label and confidence score for each, then write one sentence explaining why the correct example is reasonable]
- 
 Three posts were run directly through the fine tuned model outside the test set evaluation pipeline, to show predicted label and confidence in a format closer to how the model would actually be used.
  
 | post text excerpt | predicted label | confidence |

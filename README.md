@@ -4,3 +4,23 @@ The baseline's biggest weakness is reaction_noise, with recall of only 0.27 — 
 Hypothesis: the model is systematically confusing reaction_noise with unsupported_take — specifically, defaulting to unsupported_take when it should be saying reaction_noise. The pattern fits: unsupported_take has high recall (0.75) but low precision (0.40), which is exactly what you'd see if the model is using it as a catch-all whenever a post isn't clearly a supported_argument. Meanwhile reaction_noise has the opposite signature — low recall, moderate precision — consistent with the model rarely reaching for that label even when it's correct.
 This makes sense given the label definitions themselves. The boundary between "states a position with no real backing" (unsupported_take) and "not really an argument at all — hype, meme, off-topic" (reaction_noise) is genuinely fuzzy without more context than a short post often gives. A comment like "no debate, he's the GOAT" could plausibly read as either a bare unsupported assertion or pure reaction-style hype, depending on tone the model may not be picking up reliably from text alone. We hit this same ambiguity manually during annotation — it was consistently the hardest boundary to draw.
 supported_argument is the baseline's strength (0.84 precision, 0.76 recall), likely because it's the most textually distinct class — supported arguments tend to contain identifiable markers like stats, comparisons, or explicit reasoning language that the other two labels lack.
+
+
+Hyperparameters changed
+
+# ── Hyperparameters ───────────────────────────────────────────────────────
+# num_train_epochs  — passes through the training data; 3 is a good default
+#                     for small datasets. Increase cautiously; more epochs
+#                     risk overfitting on 200 examples.
+changed to 5
+
+# learning_rate     — 2e-5 is the standard starting point for fine-tuning
+#                     BERT-family models. Lower → slower but more stable.
+# per_device_train_batch_size — 16 fits T4 GPU comfortably.
+#                     Reduce to 8 if you get out-of-memory errors.
+
+changed to 8
+
+
+
+class weighting fixed the majority-class collapse of unsupported_take and model accurary went from 57.5 to 67.5 beating the baseline
